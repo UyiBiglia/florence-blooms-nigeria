@@ -22,38 +22,97 @@ const NAV_LINKS = [
 ] as const;
 
 function SiteNav() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
+
+  // Close the mobile menu whenever navigation happens.
+  useEffect(() => {
+    const unsub = router.subscribe(() => setMenuOpen(false));
+    return unsub;
+  }, [router]);
+
+  const navList = (extraClassName: string) => (
+    <ul className={`flex ${extraClassName}`}>
+      {NAV_LINKS.map((item) => (
+        <li key={item.to}>
+          <Link
+            to={item.to}
+            activeOptions={{ exact: item.to === "/" }}
+            className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+            activeProps={{
+              className:
+                "!text-accent-foreground bg-accent hover:!text-accent-foreground",
+            }}
+          >
+            {item.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link to="/" className="flex items-center gap-2">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6">
+        <div className="flex min-w-0 items-center gap-2">
           <span
             aria-hidden="true"
-            className="inline-block size-2.5 rounded-full bg-primary"
+            className="size-2.5 shrink-0 rounded-full bg-primary"
           />
-          <span className="font-display text-xl font-semibold tracking-wide text-foreground sm:text-2xl">
+          <Link
+            to="/"
+            className="truncate font-display text-xl font-semibold tracking-wide text-foreground sm:text-2xl"
+          >
             Florence Flowers
-          </span>
-        </Link>
-        <nav aria-label="Main navigation">
-          <ul className="flex items-center gap-1 sm:gap-2">
-            {NAV_LINKS.map((item) => (
-              <li key={item.to}>
-                <Link
-                  to={item.to}
-                  activeOptions={{ exact: item.to === "/" }}
-                  className="rounded-md px-2 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground sm:px-3"
-                  activeProps={{
-                    className:
-                      "!text-accent-foreground bg-accent hover:!text-accent-foreground",
-                  }}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          </Link>
+        </div>
+        <nav aria-label="Main navigation" className="hidden shrink-0 lg:block">
+          {navList("items-center gap-1")}
         </nav>
+        <button
+          type="button"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          className="flex size-10 shrink-0 items-center justify-center rounded-md border border-border text-foreground transition-colors hover:bg-accent lg:hidden"
+        >
+          {menuOpen ? (
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              className="size-5"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              className="size-5"
+            >
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
+        </button>
       </div>
+      {menuOpen ? (
+        <nav
+          id="mobile-nav"
+          aria-label="Mobile navigation"
+          className="border-t border-border bg-background lg:hidden"
+        >
+          <div className="px-4 py-2 sm:px-6">{navList("flex-col")}</div>
+        </nav>
+      ) : null}
     </header>
   );
 }
