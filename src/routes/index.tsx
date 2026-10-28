@@ -1,24 +1,142 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import heroStorefront from "@/assets/hero-storefront.jpg";
+import galleryBirthday from "@/assets/gallery-birthday.jpg";
+import galleryWedding from "@/assets/gallery-wedding.jpg";
+import gallerySunflowers from "@/assets/gallery-sunflowers.jpg";
+import galleryRoses from "@/assets/gallery-roses.jpg";
+import galleryPastels from "@/assets/gallery-pastels.jpg";
+import galleryPlant from "@/assets/gallery-plant.jpg";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Florence Flowers — Fresh Flowers for Every Occasion" },
+      {
+        name: "description",
+        content:
+          "Brightening moments across Nigeria with fresh, beautiful flowers. Order for pickup or delivery in Lagos, Abuja, Port Harcourt, Ibadan, and Kano.",
+      },
+      {
+        property: "og:title",
+        content: "Florence Flowers — Fresh Flowers for Every Occasion",
+      },
+      {
+        property: "og:description",
+        content:
+          "Brightening moments across Nigeria with fresh, beautiful flowers. Order for pickup or delivery in Lagos, Abuja, Port Harcourt, Ibadan, and Kano.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const GALLERY_PHOTOS = [
+  { src: galleryBirthday, alt: "Bright, joyful mixed bouquet wrapped in kraft paper" },
+  { src: galleryWedding, alt: "Elegant white rose and peony wedding bouquet" },
+  { src: gallerySunflowers, alt: "Cheerful sunflowers and yellow daisies in a glass jar" },
+  { src: galleryRoses, alt: "Classic bouquet of deep red roses" },
+  { src: galleryPastels, alt: "Soft pastel basket of pink and blue roses with baby's breath" },
+  { src: galleryPlant, alt: "Welcoming potted plant beside a fresh mixed bouquet" },
+];
+
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      {/* Hero banner */}
+      <section className="relative isolate">
+        <img
+          src={heroStorefront}
+          alt="Flower shop storefront with crates of fresh bouquets in soft morning light"
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
+          width={1920}
+          height={800}
+        />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/55 via-background/25 to-background/80" />
+        <div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-24 text-center sm:px-6 sm:py-32 lg:py-40">
+          <h1 className="max-w-3xl text-4xl font-semibold leading-tight text-foreground sm:text-5xl lg:text-6xl">
+            Florence Flowers — Fresh Flowers for Every Occasion
+          </h1>
+          <p className="mt-4 max-w-xl text-lg font-medium text-secondary sm:text-xl">
+            Brightening moments across Nigeria with fresh, beautiful flowers.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/occasions"
+              className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+            >
+              Browse by occasion
+            </Link>
+            <Link
+              to="/locations"
+              className="rounded-full border border-secondary/40 bg-background/80 px-6 py-3 text-sm font-semibold text-secondary transition-colors hover:bg-accent"
+            >
+              Find a store
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Intro */}
+      <section className="mx-auto max-w-3xl px-4 py-14 text-center sm:px-6">
+        <p className="text-lg leading-relaxed text-foreground sm:text-xl">
+          From birthday bouquets to wedding arrangements, we help you say it
+          with flowers. Order for pickup or delivery in Lagos, Abuja, Port
+          Harcourt, Ibadan, and Kano.
+        </p>
+      </section>
+
+      {/* Flower gallery */}
+      <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
+        <h2 className="text-center text-3xl font-semibold text-foreground">
+          Our flowers
+        </h2>
+        <p className="mt-2 text-center text-muted-foreground">
+          Bouquets and arrangements, made fresh every morning.
+        </p>
+        <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {GALLERY_PHOTOS.map((photo) => (
+            <li
+              key={photo.src}
+              className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
+            >
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                loading="lazy"
+                width={1024}
+                height={1024}
+                className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Closing call to action */}
+      <section className="bg-cream-deep/60">
+        <div className="mx-auto max-w-3xl px-4 py-14 text-center sm:px-6">
+          <p className="text-lg text-foreground">
+            Looking for something specific? Explore our{" "}
+            <Link
+              to="/occasions"
+              className="font-semibold text-primary underline underline-offset-4 hover:text-blush-deep"
+            >
+              Occasions
+            </Link>{" "}
+            page, or{" "}
+            <Link
+              to="/contact"
+              className="font-semibold text-primary underline underline-offset-4 hover:text-blush-deep"
+            >
+              Contact Us
+            </Link>{" "}
+            and we'll help you choose.
+          </p>
+        </div>
+      </section>
+    </>
   );
 }
