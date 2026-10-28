@@ -38,6 +38,7 @@ function SiteNav() {
           <Link
             to={item.to}
             activeOptions={{ exact: item.to === "/" }}
+            onClick={() => setMenuOpen(false)}
             className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             activeProps={{
               className:
