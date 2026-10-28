@@ -12,6 +12,7 @@ import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import florenceLogo from "@/assets/florence-logo.png.asset.json";
 
 const NAV_LINKS = [
   { to: "/", label: "Home" },
@@ -48,16 +49,15 @@ function SiteNav() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6">
-        <div className="flex min-w-0 items-center gap-2">
-          <span
-            aria-hidden="true"
-            className="size-2.5 shrink-0 rounded-full bg-primary"
-          />
-          <Link
-            to="/"
-            className="truncate font-display text-xl font-semibold tracking-wide text-foreground sm:text-2xl"
-          >
-            Florence Flowers
+        <div className="flex min-w-0 items-center">
+          <Link to="/" aria-label="Florence Flowers — home" className="flex items-center">
+            <img
+              src={florenceLogo.url}
+              alt="Florence Flowers"
+              width={929}
+              height={350}
+              className="h-9 w-auto shrink-0 sm:h-11 lg:h-12"
+            />
           </Link>
         </div>
         <nav aria-label="Main navigation" className="hidden shrink-0 lg:block">
