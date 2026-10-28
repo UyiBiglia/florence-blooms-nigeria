@@ -23,13 +23,6 @@ const NAV_LINKS = [
 
 function SiteNav() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const router = useRouter();
-
-  // Close the mobile menu whenever navigation happens.
-  useEffect(() => {
-    const unsub = router.subscribe(() => setMenuOpen(false));
-    return unsub;
-  }, [router]);
 
   const navList = (extraClassName: string) => (
     <ul className={`flex ${extraClassName}`}>
