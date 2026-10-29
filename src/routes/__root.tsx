@@ -116,7 +116,9 @@ function SiteFooter() {
     <footer className="border-t border-border bg-secondary text-secondary-foreground">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-3">
         <div>
-          <p className="font-display text-2xl font-semibold">Florence Flowers</p>
+          <p className="font-display text-2xl font-semibold">
+            Florence Flowers · UO Group
+          </p>
           <p className="mt-2 text-sm opacity-90">
             Brightening moments across Nigeria with fresh, beautiful flowers.
           </p>
