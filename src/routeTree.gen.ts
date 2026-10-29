@@ -14,6 +14,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as LocationsRouteImport } from './routes/locations'
 import { Route as OccasionsRouteImport } from './routes/occasions'
+import { Route as OrderRouteImport } from './routes/order'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const OccasionsRoute = OccasionsRouteImport.update({
   path: '/occasions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrderRoute = OrderRouteImport.update({
+  id: '/order',
+  path: '/order',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/locations': typeof LocationsRoute
   '/occasions': typeof OccasionsRoute
+  '/order': typeof OrderRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/locations': typeof LocationsRoute
   '/occasions': typeof OccasionsRoute
+  '/order': typeof OrderRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,22 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/locations': typeof LocationsRoute
   '/occasions': typeof OccasionsRoute
+  '/order': typeof OrderRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/locations' | '/occasions'
+  fullPaths:
+    '/' | '/about' | '/contact' | '/locations' | '/occasions' | '/order'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/locations' | '/occasions'
-  id: '__root__' | '/' | '/about' | '/contact' | '/locations' | '/occasions'
+  to: '/' | '/about' | '/contact' | '/locations' | '/occasions' | '/order'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/locations'
+    | '/occasions'
+    | '/order'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +94,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   LocationsRoute: typeof LocationsRoute
   OccasionsRoute: typeof OccasionsRoute
+  OrderRoute: typeof OrderRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +134,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OccasionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/order': {
+      id: '/order'
+      path: '/order'
+      fullPath: '/order'
+      preLoaderRoute: typeof OrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +150,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   LocationsRoute: LocationsRoute,
   OccasionsRoute: OccasionsRoute,
+  OrderRoute: OrderRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

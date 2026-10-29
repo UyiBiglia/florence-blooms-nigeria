@@ -34,13 +34,15 @@ export const Route = createFileRoute("/")({
 });
 
 const GALLERY_PHOTOS = [
-  { src: galleryBirthday, alt: "Bright, joyful mixed bouquet wrapped in kraft paper" },
-  { src: galleryWedding, alt: "Elegant white rose and peony wedding bouquet" },
-  { src: gallerySunflowers, alt: "Cheerful sunflowers and yellow daisies in a glass jar" },
-  { src: galleryRoses, alt: "Classic bouquet of deep red roses" },
-  { src: galleryPastels, alt: "Soft pastel basket of pink and blue roses with baby's breath" },
-  { src: galleryPlant, alt: "Welcoming potted plant beside a fresh mixed bouquet" },
+  { src: galleryBirthday, alt: "Bright, joyful mixed bouquet wrapped in kraft paper", name: "Birthday Cheer", price: "₦25,000" },
+  { src: galleryWedding, alt: "Elegant white rose and peony wedding bouquet", name: "Bridal White", price: "₦75,000" },
+  { src: gallerySunflowers, alt: "Cheerful sunflowers and yellow daisies in a glass jar", name: "Sunflower Smile", price: "₦18,000" },
+  { src: galleryRoses, alt: "Classic bouquet of deep red roses", name: "Classic Red Roses", price: "₦35,000" },
+  { src: galleryPastels, alt: "Soft pastel basket of pink and blue roses with baby's breath", name: "Pastel Basket", price: "₦28,000" },
+  { src: galleryPlant, alt: "Welcoming potted plant beside a fresh mixed bouquet", name: "Green & Blooming", price: "₦22,000" },
 ];
+
+export { GALLERY_PHOTOS };
 
 function Index() {
   return (
@@ -54,24 +56,30 @@ function Index() {
           width={1920}
           height={800}
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/55 via-background/25 to-background/80" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-black/30 to-black/70" />
         <div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-24 text-center sm:px-6 sm:py-32 lg:py-40">
-          <h1 className="max-w-3xl text-4xl font-semibold leading-tight text-foreground sm:text-5xl lg:text-6xl">
+          <h1 className="max-w-3xl text-4xl font-semibold leading-tight text-white drop-shadow-sm sm:text-5xl lg:text-6xl">
             Florence Flowers — Fresh Flowers for Every Occasion
           </h1>
-          <p className="mt-4 max-w-xl text-lg font-medium text-secondary sm:text-xl">
+          <p className="mt-4 max-w-xl text-lg font-medium text-white/90 sm:text-xl">
             Brightening moments across Nigeria with fresh, beautiful flowers.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
-              to="/occasions"
+              to="/order"
               className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+            >
+              Order flowers
+            </Link>
+            <Link
+              to="/occasions"
+              className="rounded-full border border-white/40 bg-black/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-black/40"
             >
               Browse by occasion
             </Link>
             <Link
               to="/locations"
-              className="rounded-full border border-secondary/40 bg-background/80 px-6 py-3 text-sm font-semibold text-secondary transition-colors hover:bg-accent"
+              className="rounded-full border border-white/40 bg-black/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-black/40"
             >
               Find a store
             </Link>
@@ -96,7 +104,7 @@ function Index() {
         <p className="mt-2 text-center text-muted-foreground">
           Bouquets and arrangements, made fresh every morning.
         </p>
-        <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mx-auto mt-8 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2">
           {GALLERY_PHOTOS.map((photo) => (
             <li
               key={photo.src}
@@ -110,6 +118,14 @@ function Index() {
                 height={1024}
                 className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
+              <div className="flex items-center justify-between gap-3 px-5 py-4">
+                <p className="text-base font-semibold text-foreground">
+                  {photo.name}
+                </p>
+                <p className="rounded-full bg-accent px-3 py-1 text-sm font-semibold text-accent-foreground">
+                  From {photo.price}
+                </p>
+              </div>
             </li>
           ))}
         </ul>
@@ -119,7 +135,14 @@ function Index() {
       <section className="bg-cream-deep/60">
         <div className="mx-auto max-w-3xl px-4 py-14 text-center sm:px-6">
           <p className="text-lg text-foreground">
-            Looking for something specific? Explore our{" "}
+            Ready to send flowers?{" "}
+            <Link
+              to="/order"
+              className="font-semibold text-primary underline underline-offset-4 hover:text-blush-deep"
+            >
+              Place an order
+            </Link>{" "}
+            for delivery in any of our five cities, explore our{" "}
             <Link
               to="/occasions"
               className="font-semibold text-primary underline underline-offset-4 hover:text-blush-deep"
