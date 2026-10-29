@@ -64,8 +64,14 @@ function Index() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
-              to="/occasions"
+              to="/order"
               className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+            >
+              Order flowers
+            </Link>
+            <Link
+              to="/occasions"
+              className="rounded-full border border-secondary/40 bg-background/80 px-6 py-3 text-sm font-semibold text-secondary transition-colors hover:bg-accent"
             >
               Browse by occasion
             </Link>
@@ -119,7 +125,14 @@ function Index() {
       <section className="bg-cream-deep/60">
         <div className="mx-auto max-w-3xl px-4 py-14 text-center sm:px-6">
           <p className="text-lg text-foreground">
-            Looking for something specific? Explore our{" "}
+            Ready to send flowers?{" "}
+            <Link
+              to="/order"
+              className="font-semibold text-primary underline underline-offset-4 hover:text-blush-deep"
+            >
+              Place an order
+            </Link>{" "}
+            for delivery in any of our five cities, explore our{" "}
             <Link
               to="/occasions"
               className="font-semibold text-primary underline underline-offset-4 hover:text-blush-deep"
