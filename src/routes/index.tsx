@@ -34,13 +34,15 @@ export const Route = createFileRoute("/")({
 });
 
 const GALLERY_PHOTOS = [
-  { src: galleryBirthday, alt: "Bright, joyful mixed bouquet wrapped in kraft paper" },
-  { src: galleryWedding, alt: "Elegant white rose and peony wedding bouquet" },
-  { src: gallerySunflowers, alt: "Cheerful sunflowers and yellow daisies in a glass jar" },
-  { src: galleryRoses, alt: "Classic bouquet of deep red roses" },
-  { src: galleryPastels, alt: "Soft pastel basket of pink and blue roses with baby's breath" },
-  { src: galleryPlant, alt: "Welcoming potted plant beside a fresh mixed bouquet" },
+  { src: galleryBirthday, alt: "Bright, joyful mixed bouquet wrapped in kraft paper", name: "Birthday Cheer", price: "₦25,000" },
+  { src: galleryWedding, alt: "Elegant white rose and peony wedding bouquet", name: "Bridal White", price: "₦75,000" },
+  { src: gallerySunflowers, alt: "Cheerful sunflowers and yellow daisies in a glass jar", name: "Sunflower Smile", price: "₦18,000" },
+  { src: galleryRoses, alt: "Classic bouquet of deep red roses", name: "Classic Red Roses", price: "₦35,000" },
+  { src: galleryPastels, alt: "Soft pastel basket of pink and blue roses with baby's breath", name: "Pastel Basket", price: "₦28,000" },
+  { src: galleryPlant, alt: "Welcoming potted plant beside a fresh mixed bouquet", name: "Green & Blooming", price: "₦22,000" },
 ];
+
+export { GALLERY_PHOTOS };
 
 function Index() {
   return (
@@ -54,12 +56,12 @@ function Index() {
           width={1920}
           height={800}
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/55 via-background/25 to-background/80" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-black/30 to-black/70" />
         <div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-24 text-center sm:px-6 sm:py-32 lg:py-40">
-          <h1 className="max-w-3xl text-4xl font-semibold leading-tight text-foreground sm:text-5xl lg:text-6xl">
+          <h1 className="max-w-3xl text-4xl font-semibold leading-tight text-white drop-shadow-sm sm:text-5xl lg:text-6xl">
             Florence Flowers — Fresh Flowers for Every Occasion
           </h1>
-          <p className="mt-4 max-w-xl text-lg font-medium text-secondary sm:text-xl">
+          <p className="mt-4 max-w-xl text-lg font-medium text-white/90 sm:text-xl">
             Brightening moments across Nigeria with fresh, beautiful flowers.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -71,13 +73,13 @@ function Index() {
             </Link>
             <Link
               to="/occasions"
-              className="rounded-full border border-secondary/40 bg-background/80 px-6 py-3 text-sm font-semibold text-secondary transition-colors hover:bg-accent"
+              className="rounded-full border border-white/40 bg-black/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-black/40"
             >
               Browse by occasion
             </Link>
             <Link
               to="/locations"
-              className="rounded-full border border-secondary/40 bg-background/80 px-6 py-3 text-sm font-semibold text-secondary transition-colors hover:bg-accent"
+              className="rounded-full border border-white/40 bg-black/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-black/40"
             >
               Find a store
             </Link>
