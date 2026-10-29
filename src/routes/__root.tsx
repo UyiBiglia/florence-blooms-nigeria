@@ -17,6 +17,7 @@ import florenceLogo from "@/assets/florence-logo.png.asset.json";
 const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/occasions", label: "Occasions" },
+  { to: "/order", label: "Order" },
   { to: "/locations", label: "Locations" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
