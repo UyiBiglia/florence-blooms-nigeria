@@ -16,6 +16,16 @@ describe("App routing", () => {
   });
 });
 
+// Placeholder Naira prices show on every home-page flower card.
+describe("Home gallery prices", () => {
+  it("gives every flower card a Naira price", () => {
+    expect(GALLERY_PHOTOS.length).toBeGreaterThan(0);
+    for (const photo of GALLERY_PHOTOS) {
+      expect(photo.price).toMatch(/^₦[\d,]+$/);
+    }
+  });
+});
+
 // The shop is closed on Saturdays: orders can never be delivered that day.
 describe("Delivery date rules", () => {
   it("blocks Saturday deliveries", () => {

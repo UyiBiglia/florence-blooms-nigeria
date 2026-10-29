@@ -104,7 +104,7 @@ function Index() {
         <p className="mt-2 text-center text-muted-foreground">
           Bouquets and arrangements, made fresh every morning.
         </p>
-        <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mx-auto mt-8 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2">
           {GALLERY_PHOTOS.map((photo) => (
             <li
               key={photo.src}
@@ -118,6 +118,14 @@ function Index() {
                 height={1024}
                 className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
+              <div className="flex items-center justify-between gap-3 px-5 py-4">
+                <p className="text-base font-semibold text-foreground">
+                  {photo.name}
+                </p>
+                <p className="rounded-full bg-accent px-3 py-1 text-sm font-semibold text-accent-foreground">
+                  From {photo.price}
+                </p>
+              </div>
             </li>
           ))}
         </ul>
