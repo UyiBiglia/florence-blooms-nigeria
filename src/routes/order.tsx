@@ -119,6 +119,7 @@ function OrderPage() {
   const [form, setForm] = useState<OrderForm>(EMPTY_FORM);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitted, setSubmitted] = useState<OrderForm | null>(null);
+  const [datePickerOpen, setDatePickerOpen] = useState(false);
   const today = startOfToday();
 
   const update = <K extends keyof OrderForm>(field: K, value: OrderForm[K]) => {
@@ -362,7 +363,7 @@ function OrderPage() {
           <label className="mb-1.5 block text-sm font-semibold text-foreground">
             Delivery date
           </label>
-          <Popover>
+          <Popover open={datePickerOpen} onOpenChange={setDatePickerOpen}>
             <PopoverTrigger asChild>
               <Button
                 type="button"
@@ -379,7 +380,10 @@ function OrderPage() {
               <Calendar
                 mode="single"
                 selected={form.deliveryDate}
-                onSelect={(date) => update("deliveryDate", date ?? undefined)}
+                onSelect={(date) => {
+                  update("deliveryDate", date ?? undefined);
+                  setDatePickerOpen(false);
+                }}
                 disabled={[{ before: today }, { dayOfWeek: [6] }]}
                 initialFocus
                 className="pointer-events-auto p-3"
