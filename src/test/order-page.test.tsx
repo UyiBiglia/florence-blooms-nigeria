@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 
 import { routeTree } from "@/routeTree.gen";
 import { isBlockedDeliveryDate } from "@/lib/delivery";
+import { GALLERY_PHOTOS } from "@/routes/index";
 
 // Match routes without running loaders or rendering.
 describe("App routing", () => {
