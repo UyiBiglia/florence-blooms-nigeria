@@ -64,7 +64,7 @@ function Contact() {
         or Kano — see our{" "}
         <Link
           to="/locations"
-          className="font-semibold text-primary underline underline-offset-4 hover:text-blush-deep"
+          className="font-semibold text-primary underline underline-offset-4 hover:text-greenery"
         >
           Locations
         </Link>{" "}

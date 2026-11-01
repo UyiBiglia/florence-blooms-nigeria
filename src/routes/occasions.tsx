@@ -102,12 +102,13 @@ function Occasions() {
         <p className="text-lg text-accent-foreground">
           Not sure what to choose?{" "}
           <Link
-            to="/contact"
+            to="/order"
+            search={{ suggest: true }}
             className="font-semibold underline underline-offset-4 hover:text-primary"
           >
-            Contact Us
+            Let us suggest a bouquet
           </Link>{" "}
-          and we'll help you pick the perfect flowers.
+          based on your occasion and delivery city.
         </p>
       </div>
     </div>

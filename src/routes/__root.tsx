@@ -16,6 +16,7 @@ import florenceLogo from "@/assets/florence-logo.png.asset.json";
 
 const NAV_LINKS = [
   { to: "/", label: "Home" },
+  { to: "/flowers", label: "Flowers" },
   { to: "/occasions", label: "Occasions" },
   { to: "/order", label: "Order" },
   { to: "/locations", label: "Locations" },
@@ -34,11 +35,22 @@ function SiteNav() {
             to={item.to}
             activeOptions={{ exact: item.to === "/" }}
             onClick={() => setMenuOpen(false)}
-            className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-            activeProps={{
-              className:
-                "!text-accent-foreground bg-accent hover:!text-accent-foreground",
-            }}
+            className={
+              item.to === "/order"
+                ? "inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                : "block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+            }
+            activeProps={
+              item.to === "/order"
+                ? {
+                    className:
+                      "inline-flex items-center rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground",
+                  }
+                : {
+                    className:
+                      "!text-accent-foreground bg-accent hover:!text-accent-foreground",
+                  }
+            }
           >
             {item.label}
           </Link>
@@ -293,7 +305,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-dvh flex-col">
         <SiteNav />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <main className="flex-1">
