@@ -16,6 +16,7 @@ import florenceLogo from "@/assets/florence-logo.png.asset.json";
 
 const NAV_LINKS = [
   { to: "/", label: "Home" },
+  { to: "/flowers", label: "Flowers" },
   { to: "/occasions", label: "Occasions" },
   { to: "/order", label: "Order" },
   { to: "/locations", label: "Locations" },
@@ -293,7 +294,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-dvh flex-col">
         <SiteNav />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <main className="flex-1">
