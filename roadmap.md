@@ -6,3 +6,4 @@
 - [ ] Order page choice: "I know what I want" vs "I don't have anything in mind yet" (suggestion by occasion + city)
 - [ ] Home hero CTAs: "Shop flowers" primary → /flowers; "Not sure what you want? Let us suggest" → /order suggestion
 - [ ] Tests + browser verification at phone/tablet/desktop
+- [ ] Professional polish pass: typography, spacing, alignment, shadows, component consistency site-wide
