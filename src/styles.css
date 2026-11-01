@@ -5,11 +5,12 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Florence Flowers design system.
+ * Florence Flowers design system — "garden fresh".
  *
- * Warm, elegant flower-shop palette: cream backgrounds, blush-pink
- * accents, and deep greenery. All colors use oklch and live here —
- * components never hardcode color utilities.
+ * Soft cream page background, deep green accents, buttons and links,
+ * and warm white cards and section surfaces. A touch of blush remains
+ * as a supporting accent so the flower photos stand out. All colors
+ * use oklch and live here — components never hardcode color utilities.
  *
  * To add a new semantic color:
  * 1. Add the variable to :root (light value) and .dark (dark value)
@@ -55,68 +56,77 @@
 
 :root {
   --radius: 0.625rem;
-  /* Warm cream page background */
-  --background: oklch(0.975 0.016 85);
-  /* Warm deep brown-green text */
-  --foreground: oklch(0.3 0.032 70);
-  --card: oklch(0.99 0.008 85);
-  --card-foreground: oklch(0.3 0.032 70);
-  --popover: oklch(0.99 0.008 85);
-  --popover-foreground: oklch(0.3 0.032 70);
-  /* Deep warm rose for buttons and key accents */
-  --primary: oklch(0.55 0.13 25);
-  --primary-foreground: oklch(0.98 0.012 85);
-  /* Deep greenery for secondary accents */
-  --secondary: oklch(0.4 0.07 155);
-  --secondary-foreground: oklch(0.97 0.014 85);
-  --muted: oklch(0.94 0.022 80);
-  --muted-foreground: oklch(0.49 0.035 70);
-  /* Soft blush for hover and highlight surfaces */
-  --accent: oklch(0.93 0.045 25);
-  --accent-foreground: oklch(0.38 0.09 25);
+  /* Soft cream page background */
+  --background: oklch(0.97 0.014 95);
+  /* Deep green-tinted text */
+  --foreground: oklch(0.28 0.03 155);
+  /* Warm white cards and section surfaces */
+  --card: oklch(0.995 0.004 100);
+  --card-foreground: oklch(0.28 0.03 155);
+  --popover: oklch(0.995 0.004 100);
+  --popover-foreground: oklch(0.28 0.03 155);
+  /* Deep garden green for buttons and key accents */
+  --primary: oklch(0.38 0.075 152);
+  --primary-foreground: oklch(0.98 0.012 100);
+  /* Deeper greenery for secondary surfaces (footer, tags) */
+  --secondary: oklch(0.35 0.06 152);
+  --secondary-foreground: oklch(0.97 0.014 100);
+  --muted: oklch(0.94 0.014 105);
+  --muted-foreground: oklch(0.46 0.025 155);
+  /* Soft green-tinted surface for hover and highlight states */
+  --accent: oklch(0.92 0.045 148);
+  --accent-foreground: oklch(0.3 0.05 152);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.9 0.028 75);
-  --input: oklch(0.9 0.028 75);
-  --ring: oklch(0.72 0.09 25);
-  /* Extra palette accents */
-  --blush: oklch(0.86 0.07 25);
-  --blush-deep: oklch(0.68 0.12 22);
+  --border: oklch(0.9 0.02 110);
+  --input: oklch(0.9 0.02 110);
+  /* Green focus ring */
+  --ring: oklch(0.5 0.09 152);
+  /* Extra palette accents: blush pink beside the greenery */
+  --blush: oklch(0.87 0.06 20);
+  --blush-deep: oklch(0.62 0.12 20);
   --greenery: oklch(0.42 0.08 152);
-  --greenery-soft: oklch(0.87 0.05 145);
-  --cream-deep: oklch(0.93 0.03 82);
+  --greenery-soft: oklch(0.9 0.05 148);
+  --cream-deep: oklch(0.945 0.018 100);
 }
 
 .dark {
-  --background: oklch(0.24 0.03 70);
-  --foreground: oklch(0.96 0.014 85);
-  --card: oklch(0.29 0.032 70);
-  --card-foreground: oklch(0.96 0.014 85);
-  --popover: oklch(0.29 0.032 70);
-  --popover-foreground: oklch(0.96 0.014 85);
-  --primary: oklch(0.78 0.09 25);
-  --primary-foreground: oklch(0.25 0.04 25);
-  --secondary: oklch(0.62 0.07 152);
+  --background: oklch(0.23 0.02 150);
+  --foreground: oklch(0.95 0.012 100);
+  --card: oklch(0.27 0.02 150);
+  --card-foreground: oklch(0.95 0.012 100);
+  --popover: oklch(0.27 0.02 150);
+  --popover-foreground: oklch(0.95 0.012 100);
+  --primary: oklch(0.74 0.09 150);
+  --primary-foreground: oklch(0.22 0.04 152);
+  --secondary: oklch(0.6 0.06 152);
   --secondary-foreground: oklch(0.16 0.03 152);
-  --muted: oklch(0.33 0.028 70);
-  --muted-foreground: oklch(0.78 0.03 80);
-  --accent: oklch(0.36 0.05 25);
-  --accent-foreground: oklch(0.92 0.05 25);
+  --muted: oklch(0.32 0.02 150);
+  --muted-foreground: oklch(0.78 0.02 110);
+  --accent: oklch(0.34 0.04 150);
+  --accent-foreground: oklch(0.92 0.05 148);
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.72 0.09 25);
-  --blush: oklch(0.7 0.09 25);
-  --blush-deep: oklch(0.8 0.1 22);
+  --ring: oklch(0.72 0.09 150);
+  --blush: oklch(0.7 0.09 20);
+  --blush-deep: oklch(0.8 0.1 20);
   --greenery: oklch(0.62 0.08 152);
-  --greenery-soft: oklch(0.34 0.05 145);
-  --cream-deep: oklch(0.36 0.03 75);
+  --greenery-soft: oklch(0.34 0.05 148);
+  --cream-deep: oklch(0.31 0.02 130);
 }
 
 @layer base {
   * {
     border-color: var(--color-border);
+  }
+
+  /* Visible keyboard focus indicators on every interactive element. */
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
   body {
