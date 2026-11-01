@@ -4,26 +4,41 @@ import { describe, expect, it } from "vitest";
 
 import { routeTree } from "@/routeTree.gen";
 import { isBlockedDeliveryDate } from "@/lib/delivery";
-import { GALLERY_PHOTOS } from "@/routes/index";
+import { BOUQUETS, suggestBouquet } from "@/lib/bouquets";
 
 // Match routes without running loaders or rendering.
 describe("App routing", () => {
-  it("matches a page for /order instead of falling back to not found", () => {
-    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+  const cases = ["/", "/flowers", "/order", "/occasions", "/locations", "/about", "/contact"];
+  for (const path of cases) {
+    it(`matches a page for ${path} instead of falling back to not found`, () => {
+      const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+      const matches = router.matchRoutes(path);
+      expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+    });
+  }
+});
 
-    const matches = router.matchRoutes("/order");
-
-    expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+// Placeholder Naira prices show on every catalog card, between ₦18,000 and ₦75,000.
+describe("Bouquet catalog prices", () => {
+  it("gives every bouquet a Naira price in the agreed placeholder range", () => {
+    expect(BOUQUETS.length).toBeGreaterThanOrEqual(8);
+    expect(BOUQUETS.length).toBeLessThanOrEqual(12);
+    for (const bouquet of BOUQUETS) {
+      expect(bouquet.price).toMatch(/^₦[\d,]+$/);
+      const value = Number(bouquet.price.replace(/[₦,]/g, ""));
+      expect(value).toBeGreaterThanOrEqual(18000);
+      expect(value).toBeLessThanOrEqual(75000);
+    }
   });
 });
 
-// Placeholder Naira prices show on every home-page flower card.
-describe("Home gallery prices", () => {
-  it("gives every flower card a Naira price", () => {
-    expect(GALLERY_PHOTOS.length).toBeGreaterThan(0);
-    for (const photo of GALLERY_PHOTOS) {
-      expect(photo.price).toMatch(/^₦[\d,]+$/);
-    }
+// "I don't have anything in mind yet": suggestion maps occasion to a bouquet.
+describe("Bouquet suggestions", () => {
+  it("suggests the sympathy bouquet for a sympathy occasion", () => {
+    expect(suggestBouquet("Sympathy").slug).toBe("pure-serenity");
+  });
+  it("still suggests a bouquet for an occasion with no dedicated match", () => {
+    expect(suggestBouquet("Just Because")).toBeTruthy();
   });
 });
 
