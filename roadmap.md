@@ -7,3 +7,6 @@
 - [x] Home hero CTAs: "Shop flowers" primary → /flowers; "Not sure what you want? Let us suggest" → /order suggestion
 - [x] Tests + browser verification at phone/tablet/desktop
 - [x] Professional polish pass: typography, spacing, alignment, shadows, component consistency site-wide
+- [x] Recipient categories (her / him / anyone): catalog filter tabs + badges, suggestion flow asks "Who is it for?"
+- [x] Richer home page: trust strip, For her/For him collections, how-ordering-works, occasion quick-picks, testimonials
+
