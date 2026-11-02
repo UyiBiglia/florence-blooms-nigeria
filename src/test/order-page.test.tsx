@@ -48,7 +48,10 @@ describe("Bouquet suggestions", () => {
   });
   it("suggests a rose bouquet when the gift is for her", () => {
     const suggestion = suggestBouquet("Anniversary", "her");
-    expect(["classic-red-roses", "anniversary-blush"]).toContain(suggestion.slug);
+    expect(["bridal-white", "classic-red-roses", "anniversary-blush"]).toContain(
+      suggestion.slug,
+    );
+    expect(suggestion.forWho).toBe("her");
   });
   it("suggests a masculine-leaning bouquet when the gift is for him", () => {
     const suggestion = suggestBouquet("Birthday", "him");

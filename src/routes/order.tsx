@@ -126,7 +126,13 @@ function formatDeliveryDate(date: Date): string {
 const inputClass =
   "w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
-function ErrorText({ id, message }: { id: string; message?: string }) {
+function ErrorText({
+  id,
+  message,
+}: {
+  id: string;
+  message?: string | undefined;
+}) {
   if (!message) return null;
   return (
     <p id={id} className="mt-1 text-sm text-destructive">
