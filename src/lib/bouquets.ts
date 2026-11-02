@@ -175,12 +175,14 @@ export function isRecipient(value: string | undefined | null): value is Recipien
  */
 export function suggestBouquet(occasion: string, recipient: Recipient = "anyone"): Bouquet {
   const occasionMatches = BOUQUETS.filter((b) => b.occasions.includes(occasion));
-  return (
+  const byOccasion =
     occasionMatches.find((b) => b.forWho === recipient) ??
     occasionMatches.find((b) => b.forWho === "anyone") ??
-    occasionMatches[0] ??
+    occasionMatches[0];
+  if (byOccasion) return byOccasion;
+  return (
     BOUQUETS.find((b) => b.forWho === recipient) ??
     BOUQUETS.find((b) => b.forWho === "anyone") ??
-    BOUQUETS[0]
+    (BOUQUETS[0] as Bouquet)
   );
 }

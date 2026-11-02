@@ -13,11 +13,14 @@ import {
 } from "@/components/ui/popover";
 
 export const Route = createFileRoute("/order")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    bouquet: typeof search.bouquet === "string" ? search.bouquet : undefined,
-    suggest:
-      search.suggest === "1" || search.suggest === true ? true : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>) => {
+    const params: { bouquet?: string; suggest?: boolean } = {};
+    const bouquet = search["bouquet"];
+    if (typeof bouquet === "string") params.bouquet = bouquet;
+    const suggest = search["suggest"];
+    if (suggest === "1" || suggest === true) params.suggest = true;
+    return params;
+  },
   head: () => ({
     meta: [
       { title: "Order Flowers — Florence Flowers" },

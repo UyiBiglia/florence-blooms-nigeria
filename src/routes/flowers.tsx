@@ -4,9 +4,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { BOUQUETS, isRecipient, RECIPIENTS, type Recipient } from "@/lib/bouquets";
 
 export const Route = createFileRoute("/flowers")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    for: typeof search.for === "string" && isRecipient(search.for) ? search.for : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>) => {
+    const params: { for?: Recipient } = {};
+    const recipient = search["for"];
+    if (isRecipient(recipient)) params.for = recipient;
+    return params;
+  },
   head: () => ({
     meta: [
       { title: "Fresh Flowers & Bouquets — Florence Flowers" },
