@@ -341,7 +341,30 @@ function OrderPage() {
           }}
           className="mt-8 space-y-6 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8"
         >
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-3">
+            <div>
+              <label
+                htmlFor="suggest-recipient"
+                className="mb-1.5 block text-sm font-semibold text-foreground"
+              >
+                Who is it for?
+              </label>
+              <select
+                id="suggest-recipient"
+                value={suggestionInputs.recipient}
+                onChange={(e) =>
+                  setSuggestionInputs((prev) => ({
+                    ...prev,
+                    recipient: e.target.value as Recipient,
+                  }))
+                }
+                className={inputClass}
+              >
+                <option value="her">For her</option>
+                <option value="him">For him</option>
+                <option value="anyone">Either is fine</option>
+              </select>
+            </div>
             <div>
               <label
                 htmlFor="suggest-occasion"
