@@ -326,8 +326,8 @@ function OrderPage() {
           Let us suggest a bouquet
         </h1>
         <p className="mt-3 text-lg text-muted-foreground">
-          Tell us the occasion and where it's going, and we'll point you to
-          something fitting.
+          Tell us who it's for, the occasion, and where it's going — we'll
+          point you to something fitting.
         </p>
 
         <form
@@ -446,7 +446,12 @@ function OrderPage() {
               />
               <div className="p-6">
                 <p className="text-sm font-medium text-greenery">
-                  We suggest
+                  We suggest ·{" "}
+                  {suggestionInputs.recipient === "her"
+                    ? "a gift for her"
+                    : suggestionInputs.recipient === "him"
+                      ? "a gift for him"
+                      : "for anyone"}
                 </p>
                 <h2 className="mt-1 text-2xl font-semibold text-foreground">
                   {suggestion.name}
