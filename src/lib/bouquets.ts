@@ -160,7 +160,7 @@ export function getBouquet(slug: string | undefined | null): Bouquet | undefined
   return BOUQUETS.find((b) => b.slug === slug);
 }
 
-export function isRecipient(value: string | undefined | null): value is Recipient {
+export function isRecipient(value: unknown): value is Recipient {
   return value === "her" || value === "him" || value === "anyone";
 }
 
