@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarIcon } from "lucide-react";
 
 import { isBlockedDeliveryDate, startOfToday } from "@/lib/delivery";
-import { BOUQUETS, getBouquet, suggestBouquet, type Bouquet } from "@/lib/bouquets";
+import { BOUQUETS, getBouquet, suggestBouquet, type Bouquet, type Recipient } from "@/lib/bouquets";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -152,9 +152,14 @@ function OrderPage() {
   const [submitted, setSubmitted] = useState<OrderForm | null>(null);
   const [datePickerOpen, setDatePickerOpen] = useState(false);
   const [suggestion, setSuggestion] = useState<Bouquet | null>(null);
-  const [suggestionInputs, setSuggestionInputs] = useState({
+  const [suggestionInputs, setSuggestionInputs] = useState<{
+    occasion: string;
+    city: string;
+    recipient: Recipient;
+  }>({
     occasion: "",
     city: "",
+    recipient: "anyone",
   });
   const today = startOfToday();
 
@@ -176,7 +181,7 @@ function OrderPage() {
     setErrors({});
     setSubmitted(null);
     setSuggestion(null);
-    setSuggestionInputs({ occasion: "", city: "" });
+    setSuggestionInputs({ occasion: "", city: "", recipient: "anyone" });
     setStage("choose");
   };
 
@@ -329,7 +334,9 @@ function OrderPage() {
           onSubmit={(event) => {
             event.preventDefault();
             if (suggestionInputs.occasion) {
-              setSuggestion(suggestBouquet(suggestionInputs.occasion));
+              setSuggestion(
+                suggestBouquet(suggestionInputs.occasion, suggestionInputs.recipient),
+              );
             }
           }}
           className="mt-8 space-y-6 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8"
