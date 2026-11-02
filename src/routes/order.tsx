@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarIcon } from "lucide-react";
 
 import { isBlockedDeliveryDate, startOfToday } from "@/lib/delivery";
-import { BOUQUETS, getBouquet, suggestBouquet, type Bouquet } from "@/lib/bouquets";
+import { BOUQUETS, getBouquet, suggestBouquet, type Bouquet, type Recipient } from "@/lib/bouquets";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -13,11 +13,14 @@ import {
 } from "@/components/ui/popover";
 
 export const Route = createFileRoute("/order")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    bouquet: typeof search.bouquet === "string" ? search.bouquet : undefined,
-    suggest:
-      search.suggest === "1" || search.suggest === true ? true : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>) => {
+    const params: { bouquet?: string; suggest?: boolean } = {};
+    const bouquet = search["bouquet"];
+    if (typeof bouquet === "string") params.bouquet = bouquet;
+    const suggest = search["suggest"];
+    if (suggest === "1" || suggest === true) params.suggest = true;
+    return params;
+  },
   head: () => ({
     meta: [
       { title: "Order Flowers — Florence Flowers" },
@@ -126,7 +129,13 @@ function formatDeliveryDate(date: Date): string {
 const inputClass =
   "w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
-function ErrorText({ id, message }: { id: string; message?: string }) {
+function ErrorText({
+  id,
+  message,
+}: {
+  id: string;
+  message?: string | undefined;
+}) {
   if (!message) return null;
   return (
     <p id={id} className="mt-1 text-sm text-destructive">
@@ -152,9 +161,14 @@ function OrderPage() {
   const [submitted, setSubmitted] = useState<OrderForm | null>(null);
   const [datePickerOpen, setDatePickerOpen] = useState(false);
   const [suggestion, setSuggestion] = useState<Bouquet | null>(null);
-  const [suggestionInputs, setSuggestionInputs] = useState({
+  const [suggestionInputs, setSuggestionInputs] = useState<{
+    occasion: string;
+    city: string;
+    recipient: Recipient;
+  }>({
     occasion: "",
     city: "",
+    recipient: "anyone",
   });
   const today = startOfToday();
 
@@ -176,7 +190,7 @@ function OrderPage() {
     setErrors({});
     setSubmitted(null);
     setSuggestion(null);
-    setSuggestionInputs({ occasion: "", city: "" });
+    setSuggestionInputs({ occasion: "", city: "", recipient: "anyone" });
     setStage("choose");
   };
 
@@ -321,20 +335,45 @@ function OrderPage() {
           Let us suggest a bouquet
         </h1>
         <p className="mt-3 text-lg text-muted-foreground">
-          Tell us the occasion and where it's going, and we'll point you to
-          something fitting.
+          Tell us who it's for, the occasion, and where it's going — we'll
+          point you to something fitting.
         </p>
 
         <form
           onSubmit={(event) => {
             event.preventDefault();
             if (suggestionInputs.occasion) {
-              setSuggestion(suggestBouquet(suggestionInputs.occasion));
+              setSuggestion(
+                suggestBouquet(suggestionInputs.occasion, suggestionInputs.recipient),
+              );
             }
           }}
           className="mt-8 space-y-6 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8"
         >
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-3">
+            <div>
+              <label
+                htmlFor="suggest-recipient"
+                className="mb-1.5 block text-sm font-semibold text-foreground"
+              >
+                Who is it for?
+              </label>
+              <select
+                id="suggest-recipient"
+                value={suggestionInputs.recipient}
+                onChange={(e) =>
+                  setSuggestionInputs((prev) => ({
+                    ...prev,
+                    recipient: e.target.value as Recipient,
+                  }))
+                }
+                className={inputClass}
+              >
+                <option value="her">For her</option>
+                <option value="him">For him</option>
+                <option value="anyone">Either is fine</option>
+              </select>
+            </div>
             <div>
               <label
                 htmlFor="suggest-occasion"
@@ -416,7 +455,12 @@ function OrderPage() {
               />
               <div className="p-6">
                 <p className="text-sm font-medium text-greenery">
-                  We suggest
+                  We suggest ·{" "}
+                  {suggestionInputs.recipient === "her"
+                    ? "a gift for her"
+                    : suggestionInputs.recipient === "him"
+                      ? "a gift for him"
+                      : "for anyone"}
                 </p>
                 <h2 className="mt-1 text-2xl font-semibold text-foreground">
                   {suggestion.name}

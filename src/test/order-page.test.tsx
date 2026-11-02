@@ -32,13 +32,30 @@ describe("Bouquet catalog prices", () => {
   });
 });
 
-// "I don't have anything in mind yet": suggestion maps occasion to a bouquet.
+// "I don't have anything in mind yet": suggestion maps occasion, recipient
+// (her / him / anyone) to a bouquet.
 describe("Bouquet suggestions", () => {
   it("suggests the sympathy bouquet for a sympathy occasion", () => {
     expect(suggestBouquet("Sympathy").slug).toBe("pure-serenity");
   });
   it("still suggests a bouquet for an occasion with no dedicated match", () => {
     expect(suggestBouquet("Just Because")).toBeTruthy();
+  });
+  it("every bouquet is tagged for her, him, or anyone", () => {
+    for (const bouquet of BOUQUETS) {
+      expect(["her", "him", "anyone"]).toContain(bouquet.forWho);
+    }
+  });
+  it("suggests a rose bouquet when the gift is for her", () => {
+    const suggestion = suggestBouquet("Anniversary", "her");
+    expect(["bridal-white", "classic-red-roses", "anniversary-blush"]).toContain(
+      suggestion.slug,
+    );
+    expect(suggestion.forWho).toBe("her");
+  });
+  it("suggests a masculine-leaning bouquet when the gift is for him", () => {
+    const suggestion = suggestBouquet("Birthday", "him");
+    expect(suggestion.forWho).toBe("him");
   });
 });
 
