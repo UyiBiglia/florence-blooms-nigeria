@@ -278,6 +278,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+const WATSONX_CHAT_SCRIPT = `window.watsonAssistantChatOptions = {
+  integrationID: "b5c9f826-e53c-4145-9cd9-ed67fef39703", // The ID of this integration.
+  region: "https://integrations.eu-gb.assistant-builder.watson.appdomain.cloud", // The region your integration is hosted in.
+  serviceInstanceID: "69cdb4d9-4c94-430d-bfa3-c219faaa9027", // The ID of your service instance.
+  orchestrateUIAgentExtensions: false, // If you wish to enable optional UI Agent extensions.
+  onLoad: async (instance) => { await instance.render(); }
+};
+setTimeout(function(){
+  const t=document.createElement('script');
+  t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+  document.head.appendChild(t);
+});`;
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
