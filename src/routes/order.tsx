@@ -42,7 +42,7 @@ export const Route = createFileRoute("/order")({
   component: OrderPage,
 });
 
-const CITIES = [
+export const CITIES = [
   "Lagos",
   "Abuja",
   "Port Harcourt",
@@ -71,6 +71,8 @@ type OrderForm = {
   phone: string;
   email: string;
   city: string;
+  area: string;
+  landmark: string;
   occasion: string;
   request: string;
   deliveryDate: Date | undefined;
@@ -85,6 +87,8 @@ const EMPTY_FORM: OrderForm = {
   phone: "",
   email: "",
   city: "",
+  area: "",
+  landmark: "",
   occasion: "",
   request: "",
   deliveryDate: undefined,
@@ -93,7 +97,7 @@ const EMPTY_FORM: OrderForm = {
 
 type FieldErrors = Partial<Record<keyof OrderForm, string>>;
 
-function validateOrder(form: OrderForm): FieldErrors {
+export function validateOrder(form: OrderForm): FieldErrors {
   const errors: FieldErrors = {};
   if (!form.bouquet) errors.bouquet = "Please choose a bouquet.";
   if (!form.name.trim()) errors.name = "Please enter your full name.";
@@ -104,6 +108,9 @@ function validateOrder(form: OrderForm): FieldErrors {
     errors.email = "That email doesn't look right — please check it.";
   }
   if (!form.city) errors.city = "Please choose a city.";
+  if (!form.area.trim())
+    errors.area =
+      "Please enter the delivery area, LGA, or neighborhood.";
   if (!form.occasion) errors.occasion = "Please choose an occasion.";
   if (!form.request.trim())
     errors.request =
@@ -239,6 +246,16 @@ function OrderPage() {
               <dt className="inline font-semibold">City: </dt>
               <dd className="inline">{submitted.city}</dd>
             </div>
+            <div>
+              <dt className="inline font-semibold">Delivery area: </dt>
+              <dd className="inline">{submitted.area}</dd>
+            </div>
+            {submitted.landmark.trim() ? (
+              <div>
+                <dt className="inline font-semibold">Landmark: </dt>
+                <dd className="inline">{submitted.landmark}</dd>
+              </div>
+            ) : null}
             <div>
               <dt className="inline font-semibold">Occasion: </dt>
               <dd className="inline">{submitted.occasion}</dd>
@@ -695,6 +712,49 @@ function OrderPage() {
               ))}
             </select>
             <ErrorText id="order-occasion-error" message={errors.occasion} />
+          </div>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2">
+          <div>
+            <label
+              htmlFor="order-area"
+              className="mb-1.5 block text-sm font-semibold text-foreground"
+            >
+              Delivery area / LGA
+            </label>
+            <input
+              id="order-area"
+              type="text"
+              required
+              aria-invalid={errors.area ? true : undefined}
+              aria-describedby={errors.area ? "order-area-error" : undefined}
+              value={form.area}
+              onChange={(e) => update("area", e.target.value)}
+              placeholder="e.g. Yaba, Garki, Trans Amadi"
+              className={inputClass}
+            />
+            <ErrorText id="order-area-error" message={errors.area} />
+          </div>
+          <div>
+            <label
+              htmlFor="order-landmark"
+              className="mb-1.5 block text-sm font-semibold text-foreground"
+            >
+              Nearby landmark{" "}
+              <span className="font-normal text-muted-foreground">
+                (optional)
+              </span>
+            </label>
+            <input
+              id="order-landmark"
+              type="text"
+              autoComplete="off"
+              value={form.landmark}
+              onChange={(e) => update("landmark", e.target.value)}
+              placeholder="e.g. opposite the filled petrol station"
+              className={inputClass}
+            />
           </div>
         </div>
 

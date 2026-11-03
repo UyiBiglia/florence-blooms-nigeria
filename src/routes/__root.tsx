@@ -12,6 +12,7 @@ import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SocialLinks } from "@/components/social-links";
 import florenceLogo from "@/assets/florence-logo.png.asset.json";
 
 const NAV_LINKS = [
@@ -135,6 +136,7 @@ function SiteFooter() {
           <p className="mt-2 text-sm opacity-90">
             Brightening moments across Nigeria with fresh, beautiful flowers.
           </p>
+          <SocialLinks className="mt-4" />
         </div>
         <div>
           <p className="text-sm font-semibold uppercase tracking-wider opacity-80">
@@ -276,6 +278,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+const WATSONX_CHAT_SCRIPT = `window.watsonAssistantChatOptions = {
+  integrationID: "b5c9f826-e53c-4145-9cd9-ed67fef39703", // The ID of this integration.
+  region: "https://integrations.eu-gb.assistant-builder.watson.appdomain.cloud", // The region your integration is hosted in.
+  serviceInstanceID: "69cdb4d9-4c94-430d-bfa3-c219faaa9027", // The ID of your service instance.
+  orchestrateUIAgentExtensions: false, // If you wish to enable optional UI Agent extensions.
+  onLoad: async (instance) => { await instance.render(); }
+};
+setTimeout(function(){
+  const t=document.createElement('script');
+  t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+  document.head.appendChild(t);
+});`;
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
@@ -285,16 +300,11 @@ function RootShell({ children }: { children: ReactNode }) {
       <body>
         {children}
         <Scripts />
-        {/* ============================================================= */}
-        {/* CHATBOT PLACEHOLDER — IBM watsonx Assistant web chat          */}
-        {/*                                                               */}
-        {/* Paste the IBM watsonx Assistant web chat <script> tag here,   */}
-        {/* directly below this comment and before </body>. The widget    */}
-        {/* will appear in the bottom corner of the site.                 */}
-        {/*                                                               */}
-        {/* CHATBOT_SCRIPT_GOES_HERE                                      */}
-        {/* ============================================================= */}
-        <div id="watsonx-chat-placeholder" aria-hidden="true" />
+        {/* IBM watsonx Assistant web chat — loads once per page load and renders
+            the floating chat button on every page of the site. */}
+        <script
+          dangerouslySetInnerHTML={{ __html: WATSONX_CHAT_SCRIPT }}
+        />
       </body>
     </html>
   );

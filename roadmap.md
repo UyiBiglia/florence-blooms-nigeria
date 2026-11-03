@@ -9,4 +9,6 @@
 - [x] Professional polish pass: typography, spacing, alignment, shadows, component consistency site-wide
 - [x] Recipient categories (her / him / anyone): catalog filter tabs + badges, suggestion flow asks "Who is it for?"
 - [x] Richer home page: trust strip, For her/For him collections, how-ordering-works, occasion quick-picks, testimonials
-
+- [x] Social links: TikTok @uyi_biglia and X @Uyi_Biglia in the footer and Contact page
+- [x] Order page delivery-location flow: five-city dropdown + required area/LGA field + optional nearby landmark (no postal code)
+- [x] IBM watsonx Assistant web chat embedded in the app root — loads once per page load, live on every page
