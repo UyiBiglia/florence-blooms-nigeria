@@ -5,6 +5,8 @@ import { describe, expect, it } from "vitest";
 import { routeTree } from "@/routeTree.gen";
 import { isBlockedDeliveryDate } from "@/lib/delivery";
 import { BOUQUETS, suggestBouquet } from "@/lib/bouquets";
+import { SOCIAL_LINKS } from "@/components/social-links";
+import { CITIES, validateOrder } from "@/routes/order";
 
 // Match routes without running loaders or rendering.
 describe("App routing", () => {
@@ -66,5 +68,48 @@ describe("Delivery date rules", () => {
     expect(new Date(2026, 9, 31).getDay()).toBe(6);
     expect(isBlockedDeliveryDate(new Date(2026, 9, 31))).toBe(true);
     expect(isBlockedDeliveryDate(new Date(2026, 10, 1))).toBe(false);
+  });
+});
+
+// Orders deliver to the five supported cities, chosen from a dropdown, with a
+// required area/LGA field and an optional landmark — no postal code.
+describe("Delivery location flow", () => {
+  it("limits orders to the five supported cities", () => {
+    expect(CITIES).toEqual([
+      "Lagos",
+      "Abuja",
+      "Port Harcourt",
+      "Ibadan",
+      "Kano",
+    ]);
+  });
+
+  it("requires a delivery area but treats the landmark as optional", () => {
+    const base = {
+      bouquet: "classic-red-roses",
+      name: "Ada Okonkwo",
+      phone: "+234 800 000 0000",
+      email: "ada@example.com",
+      city: "Lagos",
+      occasion: "Birthday",
+      request: "Red roses in kraft wrap",
+      deliveryDate: new Date(2026, 10, 2), // Monday, not a Saturday
+      cardMessage: "",
+    };
+    const missingArea = validateOrder({ ...base, area: "", landmark: "" });
+    expect(missingArea.area).toBeTruthy();
+    const filled = validateOrder({ ...base, area: "Yaba", landmark: "" });
+    expect(filled.landmark).toBeUndefined();
+    expect(Object.values(filled).some(Boolean)).toBe(false);
+  });
+});
+
+// The shop's official TikTok and X accounts appear as social links.
+describe("Social links", () => {
+  it("links the official TikTok and X handles", () => {
+    expect(SOCIAL_LINKS.map((link) => link.url)).toEqual([
+      "https://www.tiktok.com/@uyi_biglia",
+      "https://x.com/Uyi_Biglia",
+    ]);
   });
 });
