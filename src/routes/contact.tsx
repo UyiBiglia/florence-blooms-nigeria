@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import { SocialLinks } from "@/components/social-links";
+
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
@@ -56,6 +58,10 @@ function Contact() {
           <span className="font-semibold text-secondary">Store hours:</span>{" "}
           Sunday to Friday. Closed on Saturdays and Nigerian federal public
           holidays.
+        </li>
+        <li className="flex flex-wrap items-center gap-3">
+          <span className="font-semibold text-secondary">Social:</span>
+          <SocialLinks />
         </li>
       </ul>
 
