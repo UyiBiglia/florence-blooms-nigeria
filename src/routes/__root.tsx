@@ -34,11 +34,17 @@ function SiteNav() {
         <li key={item.to}>
           <Link
             to={item.to}
-            activeOptions={{ exact: item.to === "/" }}
+            // Exact path match for Home; ignore search params so landing URLs
+            // like "/?utm_source=..." still show Home as active.
+            activeOptions={{
+              exact: item.to === "/",
+              includeSearch: false,
+              includeHash: false,
+            }}
             onClick={() => setMenuOpen(false)}
             className={
               item.to === "/order"
-                ? "inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                ? "inline-flex items-center rounded-full bg-greenery-soft px-4 py-2 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent"
                 : "block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             }
             activeProps={
