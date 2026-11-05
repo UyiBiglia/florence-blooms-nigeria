@@ -1,36 +1,67 @@
-# Florence Blooms Nigeria
+# Florence Flowers 🌸
 
-Let's build the website with you
+A responsive e-commerce-style website for a Nigerian flower shop, featuring a browsable bouquet catalogue, a guided order flow, and an IBM watsonx Assistant–powered chatbot for customer support.
 
-Build the Florence Flowers website: a flower shop business site for a Nigerian flower shop (Florence Flowers) with the following, using the attached page copy file (florence-flowers-site-copy.md) for all text content:
+**Live site:** https://florence-blooms-nigeria.lovable.app
 
-- Five pages: Home, Occasions, Locations, About, Contact — with a navigation bar at the top of every page linking all five
-- Home page opens with a hero banner: a wide, warm flower-shop image (storefront with bouquets in soft morning light, cream and blush-pink tones) with the site title and tagline text sitting on top of the image, and a flower gallery section below
-- Warm, elegant flower-shop design throughout (cream/blush palette, greenery accents)
-- Locations page shows the five city addresses and store hours exactly as written in the attached copy (hours intentionally exclude Saturdays — keep them exactly as written, never add Saturday hours)
-- Occasions page covers the bouquet guide by occasion (Birthday, Thank You, Anniversary, Valentine's Day, Get Well Soon, Congratulations, New Baby, Sympathy, Wedding, Graduation, Housewarming, Other/Just Because)
-- Contact page: keep the placeholder email as-is; the user will replace it later
-- Reserve a spot for a chatbot widget in the bottom corner of the site (an IBM watsonx Assistant web chat script will be embedded there later — leave a clearly marked placeholder where the script tag goes)
+---
 
-This project was built with [Lovable](https://lovable.dev).
+## ✨ Features
 
-**Live app**: https://florence-blooms-nigeria.lovable.app
+### Catalogue
 
-## Build with Lovable
+- **Flowers page** — bouquets with product photos and prices in Naira (₦18,000–₦75,000), filterable by category, for customers who already know what they want.
+- **Occasion shortcuts** — quick paths for the twelve occasions the shop serves: Birthday, Thank You, Anniversary, Valentine's Day, Get Well Soon, Congratulations, New Baby, Sympathy, Wedding, Graduation, Housewarming, and Other/Just Because.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/a63fd1f0-1fbb-4031-afe0-12d3b80219b4).
+### Ordering
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+- **Guided order form** — customer details, delivery city (Lagos, Abuja, Port Harcourt, Ibadan, Kano), delivery area and optional landmark, occasion, bouquet choice *or* an occasion-based suggestion flow, delivery date, and an optional card message.
+- **Smart date picker** — Saturday deliveries are not offered, so Saturdays are automatically disabled in the calendar.
+- **Order confirmation** — validates input and shows a confirmation state (no payment processing yet).
 
-## Development
+### Chatbot
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+- **IBM watsonx Assistant web chat**, embedded site-wide in the bottom corner, helping customers pick bouquets and answer shop questions.
+- A stable, self-hosted bot avatar served at `/florence-avatar.png`, so the chatbot's image never depends on a third-party link that could break.
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+## 🛠️ Built with
+
+- **Lovable** — AI-assisted full-stack development: each feature was described in plain language, generated, reviewed, and refined through iteration.
+- **React + TypeScript + Tailwind CSS** — the modern component stack, styled with a custom cream-and-deep-green "garden" design system.
+- **IBM watsonx Assistant** — conversational AI for the customer-facing chatbot.
+- **Git & GitHub** — version control; every change made in Lovable commits straight to this repository.
+
+## 📱 Responsiveness & accessibility
+
+- Fully responsive layout, including a mobile hamburger navigation.
+- The navigation highlights the current page with an active-state indicator.
+- Keyboard-focus outlines and screen-reader-friendly labels throughout.
+
+## 🗺️ Pages
+
+| Page | Purpose |
+| --- | --- |
+| Home | Hero banner, trust strip, occasion shortcuts, collections, testimonials |
+| Flowers | Filterable bouquet catalogue with prices |
+| Order | Guided order form with suggestion flow |
+| Locations | Addresses and opening hours for the five shop cities |
+| About / Contact | Brand story and customer contact form |
+
+## 🚧 Known placeholders
+
+- Customer testimonials are sample content pending real reviews.
+- Bouquet photos are placeholders pending product photography.
+
+## 📄 Project structure notes
+
+- Bouquet data (names, descriptions, prices) lives in a single editable data file, so pricing and stock updates happen in one place.
+- The order form is front-end only today; a backend with payment handling is planned.
+
+## 🔗 Connect
+
+- TikTok: [@uyi_biglia](https://tiktok.com/@uyi_biglia)
+- X (Twitter): [@Uyi_Biglia](https://x.com/Uyi_Biglia)
+
+---
+
+*Florence Flowers · UO Group*
